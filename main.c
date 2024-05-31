@@ -1,27 +1,25 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "generators.h"
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
-        printf("Wrong number of arguments.\n");
+        printf("Wrong number of arguments. You gave %d while there should be 1 argument.\n", argc - 1);
         return -1;
     }
-    printf("arg0 = %s\n", argv[0]);
-    printf("arg1 = %s\n", argv[1]);
     if (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")) {
         printf("Generates a new random word/name. Usage is as follows:\n");
         return 0;
     }
     if (!strcmp(argv[1], "v1")) {
-        printf("Generating using generator v1\n");
-        char* string = malloc(10);
+        srand(time(NULL));
+        int stringLength = 1 + (rand() % 20);
+        char* string = malloc(stringLength);
         if (string != NULL) {
-            printf("Memory successfully allocated\n");
-            v1(10, string);
-            printf("version 1'd\n");
-            printf("%s", string);
+            v1(stringLength, string);
+            printf("%s\n", string);
         }
         else {
             printf("No memory.\n");
